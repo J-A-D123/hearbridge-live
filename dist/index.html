@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>HearBridge Live · Conversation workspace</title>
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to workspace</a>
+<header class="top"><a class="brand" href="./"><img src="mark.svg" alt="" width="36" height="36"><span>HearBridge <b>Live</b><small>ACCESSIBLE CONVERSATIONS</small></span></a><div class="top-actions"><span class="privacy"><i></i> Ephemeral session</span><button id="privacy">Privacy &amp; audio</button></div></header>
+<main id="main" class="wrap">
+<section class="hero"><div><div class="eyebrow">COMMUNICATION ACCESS / 01</div><h1>Every detail <em>heard.</em></h1><p>Live captions and shared confirmation for important conversations.</p></div><div class="hero-actions"><div class="demo-controls"><label for="scenario">GUIDED SCENARIO</label><select id="scenario"><option value="en">Audiology follow-up · English</option><option value="zh">Rehab reception · Mandarin</option></select></div><button id="demo" class="primary">▷ &nbsp; Run guided demo</button><button id="clear">Clear session</button></div></section>
+<div class="context"><span class="pill" id="mode">READY</span><strong id="scene">Conversation workspace</strong><span id="hint">Start with the demo, microphone or typed input.</span></div>
+<section class="session-strip" aria-label="Session status">
+<div class="status-item"><span class="status-icon" aria-hidden="true">≋</span><div><strong id="turn-total">0</strong><span>Conversation turns</span></div></div>
+<div class="status-item"><span class="status-icon warn" aria-hidden="true">!</span><div><strong id="conflict-total">0</strong><span>Unresolved conflicts</span></div></div>
+<div class="status-item"><span class="status-icon done" aria-hidden="true">✓</span><div><strong id="confirmed-total">0</strong><span>Confirmed details</span></div></div>
+</section>
+<div class="grid">
+<section class="panel captions" aria-labelledby="caption-title">
+<div class="panel-head"><div><span class="eyebrow">01 / CAPTURE</span><h2 id="caption-title">Conversation</h2></div><button id="size" aria-pressed="false" title="Toggle large captions">Aa</button></div>
+<div class="feed" id="feed" tabindex="0" aria-label="Conversation transcript"></div>
+<p class="interim" id="interim"></p>
+<form id="entry">
+<label class="sr" for="input">Add what was said</label><div class="input-row"><input id="input" maxlength="500" placeholder="Type what was said…" required><button type="submit" class="dark">Add</button></div>
+</form>
+<div class="tools"><label class="sr" for="language">Speech language</label><select id="language"><option value="en-US">English (US)</option><option value="zh-CN">普通话</option></select><button id="mic" class="dark" aria-pressed="false">Start mic</button></div>
+<p class="note" id="mic-note" role="status">Microphone off · on-device mode</p>
+</section>
+<section class="panel review" aria-labelledby="review-title">
+<div class="panel-head"><div><span class="eyebrow">02 / VERIFY</span><h2 id="review-title">Check together</h2></div><span id="count" class="pill">0 to review</span></div>
+<p class="intro">Ask the speaker to verify dates, times and rooms before sharing a recap.</p>
+<div id="cards"></div><p class="note recap-note" id="recap-note">Confirm a detail to add it to the shared recap.</p>
+<button id="recap" class="primary wide">Open confirmed recap ↗</button>
+</section>
+<aside class="side" aria-label="Accessibility tools">
+<section class="panel repair"><div class="eyebrow">03 / RESPOND</div><h2>Say it back</h2><p class="intro">Show or speak a repair phrase.</p>
+<label class="sr" for="phrase">Repair phrase</label><select id="phrase"><option value="repeat">Could you repeat that?</option><option value="slow">Could you speak more slowly?</option><option value="write">Could you write that down?</option><option value="confirm">Can we confirm the details?</option></select>
+<div class="phrase" id="phrase-text"></div><button id="show" class="dark wide">Show large ↗</button>
+</section>
+<section class="panel room"><div class="eyebrow">04 / LISTENING SPACE</div><h2>Room activity</h2><p class="intro">Visual microphone level. Relative, uncalibrated signal.</p><meter id="meter" aria-label="Relative microphone level" min="0" max="100" value="0"></meter><p class="note" role="status" id="room-note">Meter off</p><button id="room" class="wide" aria-pressed="false">Enable level meter</button></section>
+</aside>
+</div>
+<footer><span>HEARBRIDGE LIVE / GENHACKS 2026</span><span>Communication aid · Prototype</span></footer>
+</main>
+<p id="announce" class="sr" role="status"></p>
+<dialog id="settings"><div class="dialog-inner"><div class="panel-head"><h2>Privacy &amp; audio</h2><button data-close>Close</button></div><p>HearBridge keeps transcripts and decisions in this tab’s memory. Clear session removes them and stops active audio tools. Refresh also resets the session.</p><label for="engine">Speech processing</label><select id="engine"><option value="local">On-device only</option><option value="browser">Browser service (may send audio)</option></select><p>On-device mode requires a compatible browser and language pack. Browser service mode may transmit speech to the browser provider. Ask everyone before enabling a microphone or reading a recap aloud.</p><p>The room meter analyzes samples in memory. Repair phrases use an installed local voice when available. Downloads persist where you save them.</p><button id="pack" class="dark">Prepare selected language pack</button><p id="pack-status" role="status"></p>
+<section class="voice-settings" aria-labelledby="voice-title"><h3 id="voice-title">English playback</h3>
+<label for="english-voice">Local English voice</label><select id="english-voice"><option value="">Automatic</option></select>
+<label for="english-pace">Speaking pace</label><select id="english-pace"><option value="0.95">Natural</option><option value="0.82">Slower</option><option value="1.05">Brisk</option></select>
+<button id="preview-voice" class="dark">Preview English voice</button><p id="preview-status" class="note" role="status"></p>
+</section></div></dialog>
+<dialog id="display"><div class="dialog-inner"><div class="panel-head"><h2 id="display-title">Shared view</h2><button data-close>Close</button></div><div id="display-body"></div><div class="dialog-actions"><button id="speak" class="dark">Speak in English</button><button id="speak-zh" class="dark">普通话朗读</button><button id="answer" hidden>Enter speaker’s answer ↗</button><button id="download">Download confirmed details</button></div><p class="note" id="voice-status" role="status"></p></div></dialog>
+</body>
+</html>
